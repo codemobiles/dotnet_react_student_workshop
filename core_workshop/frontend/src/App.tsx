@@ -84,14 +84,7 @@ export default function PersistentDrawerLeft() {
     setOpen(false);
   };
 
-  type MyNameProps = { title: string; subtitle: string };
-  const MyName = (props: MyNameProps) => {
-    return (
-      <>
-        My name is {props.title} {props.subtitle}
-      </>
-    );
-  };
+  
 
   return (
     <Box sx={{ display: "flex" }}>
