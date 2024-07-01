@@ -99,6 +99,7 @@ export default function PersistentDrawerLeft() {
       <Menu />
       <Main open={open}>
         <DrawerHeader />
+        <MyName title="mr." subtitle="Lek" />
       </Main>
     </Box>
   );
