@@ -21,6 +21,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import Header from "./components/layouts/Header";
 import Menu from "./components/layouts/Menu";
 import { MyName } from "./components/fragments/MyName";
+import { Button } from "@mui/material";
 
 const drawerWidth = 240;
 
@@ -85,6 +86,8 @@ export default function PersistentDrawerLeft() {
     setOpen(false);
   };
 
+  let showIt = false;
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -92,7 +95,15 @@ export default function PersistentDrawerLeft() {
       <Menu />
       <Main open={open}>
         <DrawerHeader />
-        <MyName title="mr." subtitle="Lek" showSomething={false} />
+        <Button
+          variant="contained"
+          onClick={() => {
+            alert("Hey");
+          }}
+        >
+          Show
+        </Button>
+        <MyName title="mr." subtitle="Lek" showSomething={true} />
       </Main>
     </Box>
   );
