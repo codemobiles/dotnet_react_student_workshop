@@ -1,11 +1,7 @@
-import { Button } from "@mui/material";
+import React from "react";
 
-export default () => {
-  return (
-    <>
-      <Button variant="text">Text</Button>
-      <Button variant="contained">Contained</Button>
-      <Button variant="outlined">Outlined</Button>
-    </>
-  );
-};
+type Props = {};
+
+export default function App({}: Props) {
+  return <div>App</div>;
+}
