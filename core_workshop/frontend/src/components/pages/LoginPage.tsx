@@ -1,9 +1,22 @@
-import React from 'react'
+import React from "react";
 
-type Props = {}
+type Props = {};
 
 export default function LoginPage({}: Props) {
+  let username = "";
+
   return (
-    <div>LoginPage</div>
-  )
+    <div>
+      LoginPage
+      <input
+        type="text"
+        name="username"
+        onChange={(e) => {
+          username = e.target.value;
+        }}
+      />{" "}
+      <br />
+      <button onClick={() => alert(username)}>Run</button>
+    </div>
+  );
 }
