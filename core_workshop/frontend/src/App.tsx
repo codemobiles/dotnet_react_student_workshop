@@ -98,12 +98,12 @@ export default function PersistentDrawerLeft() {
         <Button
           variant="contained"
           onClick={() => {
-            alert("Hey");
+            showIt = !showIt;
           }}
         >
           Show
         </Button>
-        <MyName title="mr." subtitle="Lek" showSomething={true} />
+        <MyName title="mr." subtitle="Lek" showSomething={showIt} />
       </Main>
     </Box>
   );
