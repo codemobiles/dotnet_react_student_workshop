@@ -99,6 +99,7 @@ export default function PersistentDrawerLeft() {
           variant="contained"
           onClick={() => {
             showIt = !showIt;
+            console.log("showit " + showIt);
           }}
         >
           Show
