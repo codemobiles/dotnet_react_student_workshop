@@ -22,6 +22,7 @@ import Header from "./components/layouts/Header";
 import Menu from "./components/layouts/Menu";
 import { MyName } from "./components/fragments/MyName";
 import { Button } from "@mui/material";
+import { useState } from "react";
 
 const drawerWidth = 240;
 
@@ -86,19 +87,22 @@ export default function PersistentDrawerLeft() {
     setOpen(false);
   };
 
-  let showIt = false;
+  // let showIt = false;
+  // const [showIt, setShowIt] = React.useState(false);
+  const [showIt, setShowIt] = useState(true);
 
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <Header />
-      <Menu />
+      <Header open={open} handleDrawerOpen={handleDrawerOpen} />
+      <Menu open={open} handleDrawerClose={handleDrawerClose} />
       <Main open={open}>
         <DrawerHeader />
         <Button
           variant="contained"
           onClick={() => {
-            showIt = !showIt;
+            // showIt = !showIt;
+            setShowIt(!showIt);
             console.log("showit " + showIt);
           }}
         >
