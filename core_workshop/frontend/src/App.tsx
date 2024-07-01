@@ -9,7 +9,7 @@ import { Button } from "@mui/material";
 import { useState } from "react";
 import LoginPage from "./components/pages/LoginPage";
 import RegisterPage from "./components/pages/RegisterPage";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -60,8 +60,10 @@ export default function App() {
       <Main open={open}>
         <DrawerHeader />
         <Routes>
+          <Route path="/" element={<Navigate to="/login" />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
       </Main>
     </Box>
