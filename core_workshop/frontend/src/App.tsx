@@ -84,7 +84,8 @@ export default function PersistentDrawerLeft() {
     setOpen(false);
   };
 
-  const MyName = (props: { title: string; subtitle: string }) => {
+  type MyNameProps = { title: string; subtitle: string };
+  const MyName = (props: MyNameProps) => {
     return (
       <>
         My name is {props.title} {props.subtitle}
