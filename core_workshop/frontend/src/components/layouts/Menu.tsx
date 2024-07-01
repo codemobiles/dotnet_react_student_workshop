@@ -75,6 +75,7 @@ type MenuProps = {
   handleDrawerClose: () => void;
 };
 export default function Menu({ open, handleDrawerClose }: MenuProps) {
+  
   const theme = useTheme();
 
   return (
