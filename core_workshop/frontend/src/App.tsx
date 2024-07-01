@@ -1,3 +1,5 @@
+import { Button } from "@mui/material";
+
 export default () => {
   return (
     <>
@@ -6,4 +8,4 @@ export default () => {
       <Button variant="outlined">Outlined</Button>
     </>
   );
-}
+};
