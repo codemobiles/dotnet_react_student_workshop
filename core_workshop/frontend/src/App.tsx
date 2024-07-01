@@ -7,6 +7,9 @@ import Menu from "./components/layouts/Menu";
 import { MyName } from "./components/fragments/MyName";
 import { Button } from "@mui/material";
 import { useState } from "react";
+import LoginPage from "./components/pages/LoginPage";
+import RegisterPage from "./components/pages/RegisterPage";
+import { Route, Routes } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -49,10 +52,6 @@ export default function App() {
     setOpen(false);
   };
 
-  // let showIt = false;
-  // const [showIt, setShowIt] = React.useState(false);
-  const [showIt, setShowIt] = useState(true);
-
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -60,17 +59,10 @@ export default function App() {
       <Menu open={open} handleDrawerClose={handleDrawerClose} />
       <Main open={open}>
         <DrawerHeader />
-        <Button
-          variant="contained"
-          onClick={() => {
-            // showIt = !showIt;
-            setShowIt(!showIt);
-            console.log("showit " + showIt);
-          }}
-        >
-          Show
-        </Button>
-        <MyName title="mr." subtitle="Lek" showSomething={showIt} />
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+        </Routes>
       </Main>
     </Box>
   );
