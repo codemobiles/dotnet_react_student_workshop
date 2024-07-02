@@ -60,7 +60,7 @@ export default function App() {
       {false && <Menu open={open} handleDrawerClose={handleDrawerClose} />}
       <Main open={open}>
         <Container>
-          <DrawerHeader />
+          
           <Routes>
             <Route path="/" element={<Navigate to="/login" />} />
             <Route path="/login" element={<LoginPage />} />
