@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using backend.Database;
+using backend.Services;
 using Microsoft.AspNetCore.Mvc;
 //using backend.Models;.v1
 
@@ -20,16 +21,18 @@ namespace backend.Controllers.v1
     public class ProductController : ControllerBase
     {
         public DatabaseContext DatabaseContext { get; }
+        public IProductRepository ProductRepository { get; }
 
-        public ProductController(DatabaseContext databaseContext)
+        public ProductController(DatabaseContext databaseContext, IProductRepository productRepository)
         {
             DatabaseContext = databaseContext;
+            ProductRepository = productRepository;
         }
 
         [HttpGet]
         public IActionResult GetProducts()
         {
-            var products = this.DatabaseContext.Products.ToList();
+            var products = this.ProductRepository.GetProducts();
             return Ok(products);
         }
 
