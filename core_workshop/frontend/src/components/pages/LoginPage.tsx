@@ -1,13 +1,29 @@
 import { Box, Button, Stack, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
+
+const formValidateSchema = Yup.object().shape({
+  username: Yup.string()
+    .email("Username must be email format")
+    .required("Username is required")
+    .trim(),
+  password: Yup.string().required("Password is required").trim(),
+});
 
 type Props = {};
 
 export default function LoginPage({}: Props) {
   const defaultAccount = { username: "", password: "" };
-  const { control, handleSubmit, reset } = useForm({
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
     defaultValues: defaultAccount,
+    resolver: yupResolver(formValidateSchema),
   });
 
   return (
@@ -27,6 +43,8 @@ export default function LoginPage({}: Props) {
                 id="outlined-basic"
                 label="Username"
                 variant="outlined"
+                error
+                helperText="Username is required"
                 {...field}
               />
             )}
