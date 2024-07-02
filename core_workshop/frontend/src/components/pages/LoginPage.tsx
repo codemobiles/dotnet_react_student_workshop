@@ -42,8 +42,12 @@ export default function LoginPage({}: Props) {
             )}
           />
           <Box style={{ height: 20 }} />
-          <Button variant="contained">Login</Button>
-          <Button variant="outlined">Clear</Button>
+          <Button type="submit" variant="contained">
+            Login
+          </Button>
+          <Button variant="outlined" onClick={() => reset(defaultAccount)}>
+            Clear
+          </Button>
         </Stack>
       </form>
     </>
