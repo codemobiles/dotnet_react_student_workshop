@@ -11,6 +11,8 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { Controller, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import LogoImage from "../../assets/react.svg";
+
 import * as Yup from "yup";
 
 const formValidateSchema = Yup.object().shape({
@@ -51,6 +53,8 @@ const Login = () => {
   const showForm = () => {
     return (
       <form noValidate onSubmit={handleSubmit(onSubmit)}>
+        <img src={LogoImage} alt="Logo" />
+
         <Controller
           name="username"
           control={control}

@@ -5,7 +5,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Header from "./components/layouts/Header";
 import Menu from "./components/layouts/Menu";
 import { MyName } from "./components/fragments/MyName";
-import { Button } from "@mui/material";
+import { Button, Container } from "@mui/material";
 import { useState } from "react";
 import LoginPage from "./components/pages/LoginPage";
 import RegisterPage from "./components/pages/RegisterPage";
@@ -58,13 +58,15 @@ export default function App() {
       {false && <Header open={open} handleDrawerOpen={handleDrawerOpen} />}
       {false && <Menu open={open} handleDrawerClose={handleDrawerClose} />}
       <Main open={open}>
-        <DrawerHeader />
-        <Routes>
-          <Route path="/" element={<Navigate to="/login" />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="*" element={<Navigate to="/login" />} />
-        </Routes>
+        <Container>
+          <DrawerHeader />
+          <Routes>
+            <Route path="/" element={<Navigate to="/login" />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="*" element={<Navigate to="/login" />} />
+          </Routes>
+        </Container>
       </Main>
     </Box>
   );
