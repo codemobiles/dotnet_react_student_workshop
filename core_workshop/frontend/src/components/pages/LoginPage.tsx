@@ -1,5 +1,4 @@
-// import loginBg from "../assets/images/bg4.jpg";
-import { User, UserType } from "../../types/user.type";
+import { User, UserType } from "@/types/user.type";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Icons from "@mui/icons-material/";
 import { Box, InputAdornment } from "@mui/material";
@@ -11,8 +10,8 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { Controller, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import LogoImage from "../../assets/react.svg";
-import loginBg from "../../assets/images/bg4.jpg";
+import LogoImage from "@/assets/react.svg";
+import loginBg from "@/assets/images/bg4.jpg";
 
 import * as Yup from "yup";
 
