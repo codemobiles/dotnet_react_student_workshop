@@ -41,7 +41,9 @@ const Login = () => {
     resolver: yupResolver(formValidateSchema),
   });
 
-  const onSubmit = async (values: User) => {};
+  const onSubmit = async (values: User) => {
+    alert(JSON.stringify(values));
+  };
 
   const showForm = () => {
     return (
