@@ -1,5 +1,5 @@
 // import loginBg from "../assets/images/bg4.jpg";
-import { User } from "../../types/user.type";
+import { User, UserType } from "../../types/user.type";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Icons from "@mui/icons-material/";
 import { Box, InputAdornment } from "@mui/material";
@@ -31,7 +31,10 @@ const Login = () => {
     canelBtn: { marginTop: 2 },
   };
 
-  const initialValue: User = { username: "admin", password: "12341234" };
+  const initialValue: User = {
+    username: "admin",
+    password: "12341234",
+  };
   const {
     control,
     handleSubmit,
