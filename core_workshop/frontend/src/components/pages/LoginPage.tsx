@@ -47,7 +47,7 @@ const Login = () => {
   });
 
   const onSubmit = async (values: User) => {
-    alert(JSON.stringify(values));
+    navigate("/stock");
   };
 
   const showForm = () => {

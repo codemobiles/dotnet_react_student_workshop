@@ -10,6 +10,7 @@ import { useState } from "react";
 import LoginPage from "./components/pages/LoginPage";
 import RegisterPage from "./components/pages/RegisterPage";
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import StockPage from "./components/pages/StockPage";
 
 const drawerWidth = 240;
 
@@ -64,6 +65,7 @@ export default function App() {
             <Route path="/" element={<Navigate to="/login" />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/stock" element={<StockPage />} />
             <Route path="*" element={<Navigate to="/login" />} />
           </Routes>
         </Container>
