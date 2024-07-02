@@ -12,7 +12,11 @@ export default function LoginPage({}: Props) {
 
   return (
     <>
-      <form>
+      <form
+        onSubmit={handleSubmit((value) => {
+          alert(JSON.stringify(value));
+        })}
+      >
         <Stack direction="column" spacing={1}>
           {/* Username */}
           <Controller
