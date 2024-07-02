@@ -12,6 +12,7 @@ import Typography from "@mui/material/Typography";
 import { Controller, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import LogoImage from "../../assets/react.svg";
+import loginBg from "../../assets/images/bg4.jpg";
 
 import * as Yup from "yup";
 
@@ -142,7 +143,7 @@ const Login = () => {
           {showForm()}
         </CardContent>
       </Card>
-      {/* <style>
+      <style>
         {`
           body {
             min-height: 100vh;
@@ -153,7 +154,7 @@ const Login = () => {
             text-align: center;
           }
         `}
-      </style> */}
+      </style>
     </Box>
   );
 };
