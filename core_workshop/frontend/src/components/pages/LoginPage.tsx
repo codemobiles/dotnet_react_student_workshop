@@ -1,10 +1,14 @@
 import { Box, Button, Stack, TextField } from "@mui/material";
 import React, { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 
 type Props = {};
 
 export default function LoginPage({}: Props) {
   const defaultAccount = { username: "", password: "" };
+  const { control, handleSubmit, reset } = useForm({
+    defaultValues: defaultAccount,
+  });
 
   return (
     <>
