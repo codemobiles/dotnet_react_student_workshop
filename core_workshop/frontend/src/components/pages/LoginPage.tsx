@@ -1,11 +1,12 @@
 import { Box, Button, Stack, TextField } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 
 type Props = {};
 
 export default function LoginPage({}: Props) {
-  const defaultAccount = { username: "***", password: "----" };
-  let account = defaultAccount;
+  const defaultAccount = { username: "", password: "" };
+  // let account = defaultAccount;
+  const [account, setAccount] = useState(defaultAccount);
   return (
     <>
       <form>
@@ -15,14 +16,24 @@ export default function LoginPage({}: Props) {
             label="Username"
             variant="outlined"
             value={account.username}
-            onChange={(e) => (account.username = e.target.value)}
+            onChange={(e) => {
+              setAccount({
+                username: e.target.value,
+                password: account.password,
+              });
+            }}
           />
           <TextField
             id="outlined-basic"
             label="Password"
             variant="outlined"
             value={account.password}
-            onChange={(e) => (account.password = e.target.value)}
+            onChange={(e) => {
+              setAccount({
+                username: account.username,
+                password: e.target.value,
+              });
+            }}
           />
 
           <Box style={{ height: 20 }} />
@@ -32,7 +43,7 @@ export default function LoginPage({}: Props) {
           >
             Login
           </Button>
-          <Button variant="outlined" onClick={() => (account = defaultAccount)}>
+          <Button variant="outlined" onClick={() => setAccount(defaultAccount)}>
             Clear
           </Button>
         </Stack>
