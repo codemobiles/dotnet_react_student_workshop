@@ -50,8 +50,12 @@ export default function App() {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      {false && <Header open={open} handleDrawerOpen={handleDrawerOpen} />}
-      {false && <Menu open={open} handleDrawerClose={handleDrawerClose} />}
+      {authReducer.isAuthented && (
+        <Header open={open} handleDrawerOpen={handleDrawerOpen} />
+      )}
+      {authReducer.isAuthented && (
+        <Menu open={open} handleDrawerClose={handleDrawerClose} />
+      )}
       <Main open={open}>
         <Container>
           <Routes>
