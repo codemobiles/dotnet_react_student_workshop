@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using backend.Models;
+using backend.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 //using backend.Models;
 
@@ -30,7 +31,7 @@ namespace backend.Controllers.v1
 
 
         [HttpPost("[action]")]
-        public IActionResult Login([FromBody] User userViewModel)
+        public IActionResult Login([FromBody] LoginViewModel userViewModel)
         {
             return Ok("");
         }
