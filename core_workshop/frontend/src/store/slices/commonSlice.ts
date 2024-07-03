@@ -18,4 +18,5 @@ const commonSlice = createSlice({
   initialState: defaultState,
 });
 
+export const { add, del } = commonSlice.actions;
 export default commonSlice.reducer;
