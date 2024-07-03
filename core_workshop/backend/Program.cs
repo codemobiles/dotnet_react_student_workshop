@@ -9,6 +9,7 @@ builder.Services.InstallServiceInAssembly(builder.Configuration);
 builder.Services.AddTransient<IProductRepository, ProductRepository>();
 builder.Services.AddTransient<IAuthRepository, AuthRepository>();
 
+
 // make sure call this because used in ProductController
 builder.Services.AddAutoMapper(typeof(Program));
 
