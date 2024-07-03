@@ -9,9 +9,11 @@ builder.Services.InstallServiceInAssembly(builder.Configuration);
 builder.Services.AddTransient<IProductRepository, ProductRepository>();
 builder.Services.AddTransient<IAuthRepository, AuthRepository>();
 
+// make sure call this because used in ProductController
+builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+// Learn more about configurin g Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

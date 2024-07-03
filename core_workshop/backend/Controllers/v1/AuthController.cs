@@ -37,6 +37,8 @@ namespace backend.Controllers.v1
         [HttpPost("[action]")]
         public IActionResult Login([FromBody] LoginViewModel userViewModel)
         {
+            var use = new User() { Username = userViewModel.Username, Password = userViewModel.Password };
+            (User? result, string token) = authRepository.Login(use);
             return Ok("");
         }
 
