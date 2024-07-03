@@ -1,5 +1,5 @@
 import { LoginResult, RegisterResult } from "@/types/auth-result.type";
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { httpClient } from "@/utils/HttpClient";
 import { User } from "@/types/user.type";
 import { server } from "@/utils/constants";
@@ -18,8 +18,7 @@ const initialState: AuthState = {
   isError: false,
 };
 
-
-const login = async (value: User) => {
+const login = createAsyncThunk("auth/login", async (value: User) => {
   const result = await httpClient.post<LoginResult>(server.LOGIN_URL, value);
 
   const { token } = result.data;
@@ -29,7 +28,7 @@ const login = async (value: User) => {
   }
 
   throw Error();
-};
+});
 
 const authSlice = createSlice({
   name: "auth",
