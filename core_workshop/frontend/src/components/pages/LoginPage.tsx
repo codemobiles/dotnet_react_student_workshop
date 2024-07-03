@@ -14,6 +14,7 @@ import LogoImage from "@/assets/react.svg";
 import loginBg from "@/assets/images/bg4.jpg";
 
 import * as Yup from "yup";
+import axios from "axios";
 
 const formValidateSchema = Yup.object().shape({
   // username: Yup.string().email("Invalid email address").required("Email is required").trim(),
@@ -47,7 +48,13 @@ const Login = () => {
   });
 
   const onSubmit = async (values: User) => {
-    navigate("/stock");
+    try {
+      const url = "https://localhost:8081/api/v1/Auth/Login";
+      await axios.post(url, values);
+      navigate("/stock");
+    } catch (e) {
+      alert("Invalid account");
+    }
   };
 
   const showForm = () => {
