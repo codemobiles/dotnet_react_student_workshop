@@ -16,7 +16,7 @@ namespace backend.Controllers.v1
     public class AuthController : ControllerBase
     {
         private readonly IAuthRepository authRepository;
-        public IMapper Mapper { get;set; }
+        public IMapper Mapper { get; set; }
         public AuthController(IAuthRepository authRepository, IMapper mapper)
         {
             this.Mapper = mapper;
@@ -40,11 +40,20 @@ namespace backend.Controllers.v1
         [HttpPost("[action]")]
         public IActionResult Login([FromBody] LoginViewModel userViewModel)
         {
-            // var use = new User() { Username = userViewModel.Username, Password = userViewModel.Password };
 
-            // var user = _map    
+            var user = this.Mapper.Map<User>(userViewModel);
             (User? result, string token) = authRepository.Login(user);
-            return Ok("");
+            if (result == null)
+            {
+                return Unauthorized(new { token = "", message = "username invalid" });
+            }
+
+            if (String.IsNullOrEmpty(token))
+            {
+                return Unauthorized(new { token = "", message = "password invalid" });
+            }
+
+            return Ok(new { token = token, message = "login successfully" });
         }
 
     }
