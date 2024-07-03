@@ -9,6 +9,7 @@ builder.Services.Instal
 
 // Add services to the container.
 builder.Services.AddDbContext<DatabaseContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionSQLServer")));
+
 builder.Services.AddTransient<IProductRepository, ProductRepository>();
 
 builder.Services.AddControllers();
