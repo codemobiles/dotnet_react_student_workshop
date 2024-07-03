@@ -10,7 +10,7 @@ namespace backend.Installers
         public static void InstallServiceInAssembly(this IServiceCollection services, IConfiguration configuration)
         {
             // Find all classes implemented IInstaller to register services
-            
+
             var installers = typeof(Program).Assembly.ExportedTypes.Where(x =>
             typeof(IInstaller).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract)
             .Select(Activator.CreateInstance).Cast<IInstaller>().ToList();

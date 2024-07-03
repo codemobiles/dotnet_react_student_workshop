@@ -22,11 +22,18 @@ namespace backend.Controllers.v1
     {
         public DatabaseContext DatabaseContext { get; }
         public IProductRepository ProductRepository { get; }
+        public ILogger<ProductController> Logger { get; }
 
-        public ProductController(DatabaseContext databaseContext, IProductRepository productRepository)
+        public ProductController(
+            DatabaseContext databaseContext,
+            IProductRepository productRepository,
+            ILogger<ProductController> logger
+        )
         {
+            
             DatabaseContext = databaseContext;
             ProductRepository = productRepository;
+            Logger = logger;
         }
 
         [HttpGet]
