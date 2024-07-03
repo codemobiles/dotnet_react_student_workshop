@@ -13,20 +13,24 @@ import { Controller, useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
+import axios from "axios";
 
 const formValidateSchema = Yup.object().shape({
-  // username: Yup.string().required("Email is required").trim(),
-  username: Yup.string().test("username", () => {
-    (_value: string) => {
-      return _value != "admin" ? true : "Errror 555";
-    };
-  }),
+  username: Yup.string().required("Email is required").trim(),
+  // username: Yup.string().test("username", () => {
+  //   (_value: string) => {
+  //     return _value != "admin" ? true : "Errror 555";
+  //   };
+  // }),
   password: Yup.string().required("Password is required").trim(),
 });
 
 const Register = () => {
   const onSubmit = async (values: User) => {
-    alert(JSON.stringify(values));
+    // alert(JSON.stringify(values));
+    const url = "https://localhost:8081/api/v1/Auth/Register";
+    const result = await axios.post(url, values);
+    alert(JSON.stringify(result.data));
   };
 
   const initialValue: User = { username: "", password: "" };
