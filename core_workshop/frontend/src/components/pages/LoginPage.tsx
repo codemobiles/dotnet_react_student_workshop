@@ -137,10 +137,14 @@ const Login = () => {
         </Button>
 
         {/* Counter Redux Demo */}
-        <Stack direction={"row"}>
-          <Button>-</Button>
-          <Typography>0</Typography>
-          <Button>+</Button>
+        <Stack direction={"row"} justifyContent={"center"}>
+          <Button>
+            <Icons.RemoveCircle />
+          </Button>
+          <Typography variant="h4">0</Typography>
+          <Button>
+            <Icons.AddCircle />
+          </Button>
         </Stack>
       </form>
     );
