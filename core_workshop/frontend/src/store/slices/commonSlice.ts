@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
 export type CommonState = {
@@ -6,10 +6,13 @@ export type CommonState = {
 };
 const defaultState: CommonState = { count: 0 };
 
-const addAsync = async (preCount: number) => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  return preCount + 1;
-};
+export const addAsync = createAsyncThunk(
+  "add-async",
+  async (preCount: number) => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    return preCount + 1;
+  }
+);
 
 const commonSlice = createSlice({
   name: "common",
@@ -21,7 +24,11 @@ const commonSlice = createSlice({
       state.count--;
     },
   },
-  extraReducers: (builder) => {},
+  extraReducers: (builder) => {
+    builder.addCase(addAsync.fulfilled, (state, action) => {
+      state.count = action.payload;
+    });
+  },
   initialState: defaultState,
 });
 
