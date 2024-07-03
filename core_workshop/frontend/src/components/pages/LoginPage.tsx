@@ -125,6 +125,7 @@ const Login = () => {
           fullWidth
           variant="contained"
           color="primary"
+          disabled={authReducer.isAuthenticating}
         >
           Login
         </Button>
