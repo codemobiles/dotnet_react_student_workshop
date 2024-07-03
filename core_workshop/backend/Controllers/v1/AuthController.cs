@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using backend.Models;
+using backend.Services;
 using backend.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 //using backend.Models;
@@ -13,8 +14,10 @@ namespace backend.Controllers.v1
     [ApiController]
     public class AuthController : ControllerBase
     {
-        public AuthController()
+        private readonly IAuthRepository authRepository;
+        public AuthController(IAuthRepository authRepository)
         {
+            this.authRepository = authRepository;
         }
 
 
@@ -25,7 +28,8 @@ namespace backend.Controllers.v1
         [HttpPost("[action]")]
         public IActionResult Register([FromBody] User user)
         {
-            return Ok("");
+            this.authRepository.Register(user);
+            return Ok(new { result = "ok", message = "register successfully" });
         }
 
 
