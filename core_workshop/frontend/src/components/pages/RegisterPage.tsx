@@ -26,6 +26,8 @@ const formValidateSchema = Yup.object().shape({
 });
 
 const Register = () => {
+  const navigate = useNavigate();
+
   const onSubmit = async (values: User) => {
     // alert(JSON.stringify(values));
     const url = "https://localhost:8081/api/v1/Auth/Register";
@@ -108,7 +110,7 @@ const Register = () => {
         </Button>
         <Button
           className="mt-4"
-          onClick={() => navigate(-1)}
+          onClick={() => navigate("/login")}
           type="button"
           fullWidth
           variant="outlined"
