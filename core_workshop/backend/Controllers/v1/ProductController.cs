@@ -30,7 +30,7 @@ namespace backend.Controllers.v1
             ILogger<ProductController> logger
         )
         {
-            
+
             DatabaseContext = databaseContext;
             ProductRepository = productRepository;
             Logger = logger;
@@ -40,6 +40,8 @@ namespace backend.Controllers.v1
         public IActionResult GetProducts()
         {
             var products = this.ProductRepository.GetProducts();
+            this.Logger.LogInformation($"GetProducts Called: {products.ToList().Count} products found.");
+
             return Ok(products);
         }
 
