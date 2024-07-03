@@ -47,7 +47,7 @@ export default function Header({ open, handleDrawerOpen }: HeaderProps) {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" noWrap component="div">
-          Persistent drawer
+          {import.meta.env.VITE_APP_NAME}
         </Typography>
       </Toolbar>
     </AppBar>
