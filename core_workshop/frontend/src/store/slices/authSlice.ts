@@ -21,7 +21,8 @@ const initialState: AuthState = {
 
 export const login = createAsyncThunk("auth/login", async (value: User) => {
   const result = await httpClient.post<LoginResult>(server.LOGIN_URL, value);
-
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  
   const { token } = result.data;
   if (token) {
     localStorage.setItem(server.TOKEN_KEY, token);
