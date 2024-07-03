@@ -164,7 +164,11 @@ const Login = () => {
     <Box className="flex justify-center items-center">
       <Card className="max-w-[345px]">
         <CardContent>
-          <Typography gutterBottom variant="h5">
+          <Typography
+            gutterBottom
+            variant="h5"
+            className="text-red-400 bg-yellow-500 rounded-tl-md rounded-tr-md mt-[10px]"
+          >
             Login
           </Typography>
           {showForm()}

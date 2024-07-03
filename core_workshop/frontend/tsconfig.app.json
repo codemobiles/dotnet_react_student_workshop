@@ -34,5 +34,5 @@
       "@/assets/*": ["assets/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src", "src/InjectTailwind.tsx"]
 }
