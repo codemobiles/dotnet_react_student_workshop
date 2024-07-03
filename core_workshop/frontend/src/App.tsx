@@ -1,16 +1,17 @@
 import * as React from "react";
-import { styled, useTheme } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import Header from "./components/layouts/Header";
 import Menu from "./components/layouts/Menu";
-import { MyName } from "./components/fragments/MyName";
-import { Button, Container } from "@mui/material";
-import { useState } from "react";
+import { Container } from "@mui/material";
 import LoginPage from "./components/pages/LoginPage";
 import RegisterPage from "./components/pages/RegisterPage";
-import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import StockPage from "./components/pages/StockPage";
+import { useSelector } from "react-redux";
+import { authSelector } from "./store/slices/authSlice";
+import { useAppDispatch } from "./store/store";
 
 const drawerWidth = 240;
 
@@ -33,17 +34,10 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
   }),
 }));
 
-const DrawerHeader = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-  justifyContent: "flex-end",
-}));
-
 export default function App() {
   const [open, setOpen] = React.useState(true);
+  const authReducer = useSelector(authSelector);
+  const dispatch = useAppDispatch();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -60,7 +54,6 @@ export default function App() {
       {false && <Menu open={open} handleDrawerClose={handleDrawerClose} />}
       <Main open={open}>
         <Container>
-          
           <Routes>
             <Route path="/" element={<Navigate to="/login" />} />
             <Route path="/login" element={<LoginPage />} />
