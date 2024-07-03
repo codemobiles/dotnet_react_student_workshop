@@ -18,6 +18,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "@/store/store";
 import { add, addAsync, commonSelector, del } from "@/store/slices/commonSlice";
+import { LoginResult } from "@/types/auth-result.type";
 
 const formValidateSchema = Yup.object().shape({
   // username: Yup.string().email("Invalid email address").required("Email is required").trim(),
@@ -32,6 +33,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const commonReducer = useSelector(commonSelector);
+  const authReducer = useSelector(authSelector);
   const dispatch = useAppDispatch();
 
   const classes: any = {
@@ -54,11 +56,11 @@ const Login = () => {
   });
 
   const onSubmit = async (values: User) => {
-    try {
-      const url = "https://localhost:8081/api/v1/Auth/Login";
-      await axios.post(url, values);
+    const url = "https://localhost:8081/api/v1/Auth/Login";
+    const result = await axios.post<LoginResult>(url, values);
+    if (result && result.data.token) {
       navigate("/stock");
-    } catch (e) {
+    } else {
       alert("Invalid account");
     }
   };

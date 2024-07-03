@@ -3,6 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { httpClient } from "@/utils/HttpClient";
 import { User } from "@/types/user.type";
 import { server } from "@/utils/constants";
+import { RootState } from "../store";
 
 export interface AuthState {
   loginResult?: LoginResult;
@@ -59,3 +60,4 @@ const authSlice = createSlice({
 });
 
 export default authSlice.reducer;
+export const authSelector = (state: RootState) => state.authReducer;

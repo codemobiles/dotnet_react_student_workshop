@@ -1,10 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import commonReducer from "./slices/commonSlice";
+import authReducer from "./slices/authSlice";
 
 // let store: any = undefined;
 const store = configureStore({
-  reducer: { commonReducer },
+  reducer: { commonReducer, authReducer },
   devTools: true,
 });
 
