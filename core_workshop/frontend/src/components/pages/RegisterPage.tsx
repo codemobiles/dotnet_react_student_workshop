@@ -25,7 +25,9 @@ const formValidateSchema = Yup.object().shape({
 });
 
 const Register = () => {
-  const onSubmit = async (values: User) => {};
+  const onSubmit = async (values: User) => {
+    alert(JSON.stringify(values));
+  };
 
   const initialValue: User = { username: "", password: "" };
   const {
