@@ -26,7 +26,15 @@ namespace backend.Services
 
         public (User?, string) Login(User user)
         {
+            var result = _context.Users.SingleOrDefault(u => u.Username == user.Username);
+            var token = String.Empty;
+            if (result != null && VerifyPassword(result.Password!, user.Password!))
+            {
+                // token = BuildToken(result);
+                token = "1234";
+            }
 
+            return (result, token);
         }
 
         public void Register(User user)
