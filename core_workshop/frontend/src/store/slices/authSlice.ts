@@ -19,7 +19,7 @@ const initialState: AuthState = {
   isError: false,
 };
 
-const login = createAsyncThunk("auth/login", async (value: User) => {
+export const login = createAsyncThunk("auth/login", async (value: User) => {
   const result = await httpClient.post<LoginResult>(server.LOGIN_URL, value);
 
   const { token } = result.data;
