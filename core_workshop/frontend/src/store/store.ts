@@ -1,18 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 
-import stockReducer from "@/store/slices/stockSlice";
-import shopReducer from "@/store/slices/shopSlice";
-import authReducer from "@/store/slices/authSlice";
-
 // let store: any = undefined;
 const store = configureStore({
-  reducer: {
-    authReducer,
-    shopReducer,
-    stockReducer,
-  },
-  devTools: import.meta.env.VITE_IS_PRODUCTION === "0", // show redux log in dev mode
+  reducer: {},
+  devTools: true,
 });
 
 // export type of root state from reducers
