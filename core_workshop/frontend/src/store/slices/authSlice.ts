@@ -34,6 +34,28 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {},
+  extraReducers: (builder) => {
+    // success
+    builder.addCase(login.fulfilled, (state, action) => {
+      state.isAuthented = true;
+      state.isAuthenticating = false;
+      state.isError = false;
+      state.loginResult = action.payload;
+    });
+
+    // failed
+    builder.addCase(login.rejected, (state) => {
+      state.isAuthented = false;
+      state.isAuthenticating = false;
+      state.isError = true;
+    });
+
+    // processing
+    builder.addCase(login.pending, (state) => {
+      state.isError = false;
+      state.isAuthenticating = true;
+    });
+  },
 });
 
 export default authSlice.reducer;
