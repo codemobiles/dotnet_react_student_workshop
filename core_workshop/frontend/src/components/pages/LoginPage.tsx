@@ -15,6 +15,8 @@ import loginBg from "@/assets/images/bg4.jpg";
 
 import * as Yup from "yup";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 const formValidateSchema = Yup.object().shape({
   // username: Yup.string().email("Invalid email address").required("Email is required").trim(),
@@ -27,6 +29,7 @@ const formValidateSchema = Yup.object().shape({
 
 const Login = () => {
   const navigate = useNavigate();
+  const commonReducer = useSelector((state: RootState) => state.commonReducer);
 
   const classes: any = {
     root: { display: "flex", justifyContent: "center", alignItems: "center" },
@@ -141,7 +144,7 @@ const Login = () => {
           <Button>
             <Icons.RemoveCircle />
           </Button>
-          <Typography variant="h4">0</Typography>
+          <Typography variant="h4">{commonReducer.count}</Typography>
           <Button>
             <Icons.AddCircle />
           </Button>
