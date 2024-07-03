@@ -1,9 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
+import commonReducer from "./slices/commonSlice";
 
 // let store: any = undefined;
 const store = configureStore({
-  reducer: {},
+  reducer: { commonReducer },
   devTools: true,
 });
 
