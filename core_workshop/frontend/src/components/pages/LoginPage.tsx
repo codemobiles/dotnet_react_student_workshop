@@ -17,7 +17,7 @@ import * as Yup from "yup";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "@/store/store";
-import { add, del } from "@/store/slices/commonSlice";
+import { add, commonSelector, del } from "@/store/slices/commonSlice";
 
 const formValidateSchema = Yup.object().shape({
   // username: Yup.string().email("Invalid email address").required("Email is required").trim(),
@@ -30,7 +30,8 @@ const formValidateSchema = Yup.object().shape({
 
 const Login = () => {
   const navigate = useNavigate();
-  const commonReducer = useSelector((state: RootState) => state.commonReducer);
+
+  const commonReducer = useSelector(commonSelector);
   const dispatch = useAppDispatch();
 
   const classes: any = {
