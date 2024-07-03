@@ -1,7 +1,7 @@
 import { User, UserType } from "@/types/user.type";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Icons from "@mui/icons-material/";
-import { Box, InputAdornment } from "@mui/material";
+import { Box, InputAdornment, Stack } from "@mui/material";
 import Alert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -135,6 +135,13 @@ const Login = () => {
         >
           Register
         </Button>
+
+        {/* Counter Redux Demo */}
+        <Stack direction={"row"}>
+          <Button>-</Button>
+          <Typography>0</Typography>
+          <Button>+</Button>
+        </Stack>
       </form>
     );
   };
