@@ -60,8 +60,6 @@ const Login = () => {
     const result = await dispatch(login(values));
     if (login.fulfilled.match(result)) {
       navigate("/stock");
-    } else {
-      alert("Invalid account");
     }
   };
 
@@ -119,7 +117,7 @@ const Login = () => {
           )}
         ></Controller>
 
-        {/* {authReducer.isError && <Alert severity="error">Login failed</Alert>} */}
+        {authReducer.isError && <Alert severity="error">Login failed</Alert>}
 
         <Button
           sx={classes.submitBtn}
