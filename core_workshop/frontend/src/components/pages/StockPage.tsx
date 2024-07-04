@@ -3,5 +3,16 @@ import React from "react";
 type Props = {};
 
 export default function StockPage({}: Props) {
-  return <div>StockPage</div>;
+  const products = ["Product1", "Product2", "Product3", "Product4"];
+
+  return (
+    <div>
+      StockPage
+      <ul>
+        {products.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </div>
+  );
 }
