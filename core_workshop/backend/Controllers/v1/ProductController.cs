@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using backend.Database;
+using backend.Models;
 using backend.Services;
 using Microsoft.AspNetCore.Mvc;
 //using backend.Models;.v1
@@ -64,8 +65,15 @@ namespace backend.Controllers.v1
             return Ok($"Name is {model.Name}, {model.Price}");
         }
 
+        // public IActionResult AddProduct([FromForm] Product product, IFormFile file)
+
+        [HttpPost]
+        public IActionResult AddProduct([FromForm] Product product, IFormFile file)
+        {
 
 
-
+            return Ok(new string[] { product.Name, file.Name });
+        }
     }
+
 }
