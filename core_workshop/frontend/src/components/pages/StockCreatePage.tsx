@@ -7,11 +7,9 @@ import { Product } from "@/types/product.type";
 
 type Props = {};
 
-export default function StockCreatePage({ }: Props) {
-  
+export default function StockCreatePage({}: Props) {
   const initialValue: Product = { name: "", price: 1500, stock: 9999 };
   const { control, handleSubmit } = useForm({ defaultValues: initialValue });
-  
   return (
     <form noValidate onSubmit={() => {}}>
       <Card>
@@ -21,12 +19,19 @@ export default function StockCreatePage({ }: Props) {
           </Typography>
 
           {/* Name  */}
-          <TextField
-            label="Name"
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            autoFocus
+          <Controller
+            name="name"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                label="Name"
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                autoFocus
+                {...field}
+              />
+            )}
           />
         </CardContent>
       </Card>
