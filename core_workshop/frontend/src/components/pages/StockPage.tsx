@@ -9,9 +9,7 @@ export default function StockPage({}: Props) {
     <div>
       StockPage
       <ul>
-        {products.map((item) => (
-          <li>{item}</li>
-        ))}
+        <li>xx</li>
       </ul>
     </div>
   );
