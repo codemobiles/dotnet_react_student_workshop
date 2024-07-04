@@ -51,6 +51,8 @@ export default function StockCreatePage({}: Props) {
                 label="Name"
                 variant="outlined"
                 margin="normal"
+                error={Boolean(errors.name?.message)}
+                helperText={errors.name?.message}
                 fullWidth
                 autoFocus
                 {...field}
