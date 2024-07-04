@@ -27,6 +27,7 @@ export default function DataTable() {
   return (
     <div style={{ height: 400, width: "100%" }}>
       <DataGrid
+        getRowId={(row) => row.productId}
         rows={stockReducer.stockAllResult}
         columns={columns}
         initialState={{
