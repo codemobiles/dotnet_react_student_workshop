@@ -352,7 +352,7 @@ const Stock = () => {
       </Grid>
 
       <DataGrid
-        components={{ Toolbar: QuickSearchToolbar }}
+        slots={{ toolbar: QuickSearchToolbar }}
         sx={{
           backgroundColor: "white",
           height: "70vh",
@@ -361,7 +361,7 @@ const Stock = () => {
         getRowId={(row) => row.productId}
         rows={stockReducer.stockAllResult}
         columns={stockColumns}
-        componentsProps={{
+        slotsProps={{
           toolbar: {
             onChange: (event: React.ChangeEvent<HTMLInputElement>) =>
               setValue(event?.target.value),
