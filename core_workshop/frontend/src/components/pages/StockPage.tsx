@@ -3,6 +3,8 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { stockSelector, getProducts } from "@/store/slices/stockSlice";
 import { useAppDispatch } from "@/store/store";
 import { useSelector } from "react-redux";
+import { NumericFormat } from "react-number-format";
+import { Typography } from "@mui/material";
 
 const columns: GridColDef[] = [
   { field: "productId", headerName: "ID", width: 70 },
@@ -11,7 +13,17 @@ const columns: GridColDef[] = [
     field: "stock",
     headerName: "Stock",
     width: 130,
-    renderCell: ({ value }) => <>{value} ชิ้น</>,
+    renderCell: ({ value }) => (
+      <Typography variant="body1" className="text-red-500">
+        <NumericFormat
+          value={value}
+          displayType={"text"}
+          thousandSeparator={true}
+          decimalScale={2}
+          fixedDecimalScale={true}
+        />
+      </Typography>
+    ),
   },
   { field: "price", headerName: "Price", width: 130 },
 ];
