@@ -45,6 +45,8 @@ namespace backend.Services
 
                     _context.Add(product);
                     _context.SaveChanges();
+                    // Explicitly commit the transaction
+                    transaction.Commit();
                 }
                 catch
                 {
