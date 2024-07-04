@@ -72,13 +72,13 @@ namespace backend.Controller.v1
         [HttpPost]
         //[DisableRequestSizeLimit]
         //[RequestSizeLimit(60_000_000)] // bytes
-        public IActionResult AddProduct([FromForm] ProductViewModel productViewModel, IFormFile file)
+        public IActionResult AddProduct([FromForm] ProductViewModel productViewModel)
         // public IActionResult AddProduct([FromForm] Product product, IFormFile file)
         {
             try
             {
                 var product = _mapper.Map<Product>(productViewModel);
-                _productRepository.AddProduct(product, file);
+                _productRepository.AddProduct(product, productViewModel.Image);
                 return Ok();
             }
             catch (Exception error)
