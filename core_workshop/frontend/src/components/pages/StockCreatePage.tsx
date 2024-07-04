@@ -13,11 +13,29 @@ import { Product } from "@/types/product.type";
 
 type Props = {};
 
+const formValidateSchema = Yup.object().shape({
+  name: Yup.string().required("Name is required").trim(),
+  price: Yup.number().min(100, "Number must be greater than 100"),
+  stock: Yup.number().min(100, "Number must be greater than 100"),
+});
+
 export default function StockCreatePage({}: Props) {
   const initialValue: Product = { name: "", price: 1500, stock: 9999 };
-  const { control, handleSubmit } = useForm({ defaultValues: initialValue });
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: initialValue,
+    resolver: yupResolver(formValidateSchema),
+  });
   return (
-    <form noValidate onSubmit={() => {}}>
+    <form
+      noValidate
+      onSubmit={handleSubmit((values) => {
+        alert(JSON.stringify(values));
+      })}
+    >
       <Card>
         <CardContent className="p-8">
           <Typography gutterBottom variant="h3">
