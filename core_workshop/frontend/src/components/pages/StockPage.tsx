@@ -10,6 +10,18 @@ import "dayjs/locale/th";
 
 const columns: GridColDef[] = [
   { field: "productId", headerName: "ID", width: 70 },
+  {
+    field: "image",
+    headerName: "Name",
+    width: 100,
+    renderCell: ({ value }) => (
+      <img
+        src="https://i.natgeofe.com/n/4f5aaece-3300-41a4-b2a8-ed2708a0a27c/domestic-dog_thumb_square.jpg"
+        alt=""
+        className="h-[50px] w-[50px]"
+      />
+    ),
+  },
   { field: "name", headerName: "Name", width: 330 },
   {
     field: "stock",
@@ -68,7 +80,6 @@ export default function DataTable() {
           },
         }}
         pageSizeOptions={[5, 10]}
-        checkboxSelection
       />
     </div>
   );
