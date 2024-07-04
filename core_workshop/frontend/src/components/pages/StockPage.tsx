@@ -363,8 +363,10 @@ const Stock = () => {
         columns={stockColumns}
         slotsProps={{
           toolbar: {
-            onChange: (event: React.ChangeEvent<HTMLInputElement>) =>
-              setValue(event?.target.value),
+            onChange: (event: React.ChangeEvent<HTMLInputElement>) => {
+              console.log(event?.target.value);
+              setValue(event?.target.value);
+            },
             clearSearch: () => setValue(""),
           },
         }}
