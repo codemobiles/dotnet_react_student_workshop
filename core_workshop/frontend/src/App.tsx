@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import { authSelector, relogin } from "./store/slices/authSlice";
 import { useAppDispatch } from "./store/store";
 import PublicRoutes from "./router/public.routes";
+import ProtectedRoutes from "./router/protected.routes";
 
 const drawerWidth = 240;
 
@@ -76,8 +77,15 @@ export default function App() {
               <Route path="*" element={<Navigate to="/login" />} />
             </Route>
 
-            
-            <Route path="/stock" element={<StockPage />} />
+            {/* protected zone */}
+            <Route
+              path="/"
+              element={
+                <ProtectedRoutes isAuthented={authReducer.isAuthented} />
+              }
+            >
+              <Route path="/stock" element={<StockPage />} />
+            </Route>
           </Routes>
         </Container>
       </Main>
