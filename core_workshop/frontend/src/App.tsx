@@ -14,6 +14,11 @@ import { authSelector, relogin } from "./store/slices/authSlice";
 import { useAppDispatch } from "./store/store";
 import PublicRoutes from "./router/public.routes";
 import ProtectedRoutes from "./router/protected.routes";
+import ReportPage from "./components/pages/ReportPage";
+import ShopPage from "./components/pages/ShopPage";
+import StockCreatePage from "./components/pages/StockCreatePage";
+import StockEditPage from "./components/pages/StockEditPage";
+import TransactionPage from "./components/pages/TransactionPage";
 
 const drawerWidth = 240;
 
@@ -84,7 +89,13 @@ export default function App() {
                 <ProtectedRoutes isAuthented={authReducer.isAuthented} />
               }
             >
+              <Route path="/shop" element={<ShopPage />} />
               <Route path="/stock" element={<StockPage />} />
+              <Route path="/report" element={<ReportPage />} />
+              <Route path="/stock/create" element={<StockCreatePage />} />
+              <Route path="/stock/edit/:id" element={<StockEditPage />} />
+              <Route path="/report" element={<ReportPage />} />
+              <Route path="/transaction" element={<TransactionPage />} />
             </Route>
           </Routes>
         </Container>
