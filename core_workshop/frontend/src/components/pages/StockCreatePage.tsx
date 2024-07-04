@@ -1,4 +1,10 @@
-import { Card, CardContent, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  Card,
+  CardContent,
+  TextField,
+  Typography,
+} from "@mui/material";
 import React from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
@@ -33,6 +39,44 @@ export default function StockCreatePage({}: Props) {
               />
             )}
           />
+
+          {/* Stock  */}
+          <Controller
+            name="stock"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                label="Stock"
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                type="number"
+                autoFocus
+                {...field}
+              />
+            )}
+          />
+
+          {/* Price  */}
+          <Controller
+            name="price"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                label="Price"
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                type="number"
+                autoFocus
+                {...field}
+              />
+            )}
+          />
+
+          <Button variant="contained" type="submit" fullWidth sx={{ mt: 2 }}>
+            Create
+          </Button>
         </CardContent>
       </Card>
     </form>
