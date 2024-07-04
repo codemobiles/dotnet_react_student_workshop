@@ -208,7 +208,7 @@ const Stock = () => {
           >
             <Delete fontSize="inherit" />
           </IconButton>
-          <IconButton
+          {/* <IconButton
             disabled={isCopied && selectedProduct?.productId === row.productId}
             aria-label="copy"
             size="large"
@@ -218,7 +218,7 @@ const Stock = () => {
             }}
           >
             <CopyAll fontSize="inherit" />
-          </IconButton>
+          </IconButton> */}
         </Stack>
       ),
     },
