@@ -1,29 +1,43 @@
-import { Paper, Stack, Typography } from "@mui/material";
-import { color } from "chart.js/helpers";
-import React from "react";
+import { Grid, Typography } from "@mui/material";
+import Card from "@mui/material/Card";
 
-// icon = { AddShoppingCart };
-// title = "TOTAL";
-// subtitle = "112 THB";
-// color = "#00a65a";
-
-type Props = {
+type StockCardProps = {
   icon: any;
   title: string;
   subtitle: string;
   color: string;
 };
 
-export default function StockCard(props: Props) {
+const StockCard = (props: StockCardProps) => {
   return (
-    <Paper elevation={2} className="w-[200px]">
-      <Stack direction={"row"}>
-        <props.icon />
-        <Stack direction={"column"} color={props.color}>
-          <Typography>{props.title}</Typography>
-          <Typography>{props.subtitle}</Typography>
-        </Stack>
-      </Stack>
-    </Paper>
+    <Card>
+      <Grid container className="min-h-[70px]">
+        <Grid item className="flex-grow h-[100px] p-2">
+          <Typography variant="h5" color="textPrimary">
+            {props.title}
+          </Typography>
+          <Typography variant="h6" color="textSecondary">
+            {props.subtitle}
+          </Typography>
+        </Grid>
+
+        <Grid
+          item
+          style={{
+            backgroundColor: props.color,
+            color: "white",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            minWidth: 70,
+          }}
+        >
+          <props.icon fontSize="large" />
+          {/* {React.createElement(props.icon, { fontSize: "large" })} */}
+        </Grid>
+      </Grid>
+    </Card>
   );
-}
+};
+
+export default StockCard;
