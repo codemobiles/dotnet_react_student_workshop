@@ -5,6 +5,8 @@ import { useAppDispatch } from "@/store/store";
 import { useSelector } from "react-redux";
 import { NumericFormat } from "react-number-format";
 import { Typography } from "@mui/material";
+import dayjs from "dayjs";
+import "dayjs/locale/th";
 
 const columns: GridColDef[] = [
   { field: "productId", headerName: "ID", width: 70 },
@@ -20,12 +22,24 @@ const columns: GridColDef[] = [
           displayType={"text"}
           thousandSeparator={true}
           decimalScale={2}
+          suffix=" pcs."
           fixedDecimalScale={true}
         />
       </Typography>
     ),
   },
   { field: "price", headerName: "Price", width: 130 },
+  {
+    field: "created",
+    headerName: "Created",
+    width: 200,
+    renderCell: ({ value }) => (
+      <Typography variant="body1">
+        {/* 543 diff thai years */}
+        {dayjs(value).locale("th").add(543, "year").format("DD MMMM YYYY")}
+      </Typography>
+    ),
+  },
 ];
 
 export default function DataTable() {
