@@ -28,7 +28,7 @@ const StockCreate = () => {
     formData.append("name", values.name);
     formData.append("price", String(values.price));
     formData.append("stock", String(values.stock));
-    formData.append("file", values.file);
+    formData.append("image", values.file);
     const result = await dispatch(addProduct(formData));
     if (addProduct.fulfilled.match(result)) {
       navigate("/stock");
