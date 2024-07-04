@@ -71,7 +71,7 @@ namespace backend.Controllers.v1
         public IActionResult AddProduct([FromForm] Product product, IFormFile file)
         {
 
-
+            this.ProductRepository
             return Ok(new string[] { product.Name, file.Name });
         }
     }
