@@ -245,7 +245,7 @@ const Stock = () => {
     return (
       <Dialog
         open={open}
-        onClose={handleClose}
+        onClose={() => setOpen(false)}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
@@ -259,8 +259,8 @@ const Stock = () => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
-          <Button onClick={handleClose} autoFocus>
+          <Button onClick={() => setOpen(false)}>Disagree</Button>
+          <Button onClick={() => setOpen(false)} autoFocus>
             Agree
           </Button>
         </DialogActions>
@@ -313,12 +313,14 @@ const Stock = () => {
       {/* Summary Icons */}
       <Grid container className="mb-6" spacing={7}>
         <Grid item xs={12} lg={3} md={6}>
-          <StockCard
-            icon={AddShoppingCart}
-            title="TOTAL"
-            subtitle="112 THB"
-            color="#00a65a"
-          />
+          <Button onClick={() => setOpen(true)}>
+            <StockCard
+              icon={AddShoppingCart}
+              title="TOTAL"
+              subtitle="112 THB"
+              color="#00a65a"
+            />
+          </Button>
         </Grid>
 
         <Grid item xs={12} lg={3} md={6}>
@@ -368,6 +370,7 @@ const Stock = () => {
         }}
       />
       {showDialog()}
+      {displayDlg()}
     </Box>
   );
 };
