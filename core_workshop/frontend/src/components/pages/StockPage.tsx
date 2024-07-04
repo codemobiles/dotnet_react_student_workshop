@@ -1,86 +1,347 @@
-import * as React from "react";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { stockSelector, getProducts } from "@/store/slices/stockSlice";
+import {
+  deleteProduct,
+  getProducts,
+  stockSelector,
+} from "@/store/slices/stockSlice";
 import { useAppDispatch } from "@/store/store";
-import { useSelector } from "react-redux";
-import { NumericFormat } from "react-number-format";
-import { Typography } from "@mui/material";
+import { Product } from "@/types/product.type";
+import { imageUrl } from "@/utils/constants";
+import { Clear, CopyAll } from "@mui/icons-material";
+import Add from "@mui/icons-material/Add";
+import AddShoppingCart from "@mui/icons-material/AddShoppingCart";
+import AssignmentReturn from "@mui/icons-material/AssignmentReturn";
+import Delete from "@mui/icons-material/Delete";
+import Edit from "@mui/icons-material/Edit";
+import NewReleases from "@mui/icons-material/NewReleases";
+import Search from "@mui/icons-material/Search";
+import Star from "@mui/icons-material/Star";
+import {
+  Box,
+  Fab,
+  Grid,
+  IconButton,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
+import { useDebounce } from "@react-hook/debounce";
 import dayjs from "dayjs";
 import "dayjs/locale/th";
+import { useEffect, useState } from "react";
+import { NumericFormat } from "react-number-format";
+import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+// import useCopyToClipboard from "../../hooks/useCopyToClipboard";
+import StockCard from "@/components/fragments/StockCard";
 
-const columns: GridColDef[] = [
-  { field: "productId", headerName: "ID", width: 70 },
-  {
-    field: "image",
-    headerName: "Name",
-    width: 100,
-    renderCell: ({ value }) => (
-      <img
-        src={"https://localhost:8081/images/" + value}
-        alt=""
-        className="h-[50px] w-[50px]"
-      />
-    ),
-  },
-  { field: "name", headerName: "Name", width: 330 },
-  {
-    field: "stock",
-    headerName: "Stock",
-    width: 130,
-    renderCell: ({ value }) => (
-      <Typography variant="body1" className="text-red-500">
-        <NumericFormat
-          value={value}
-          displayType={"text"}
-          thousandSeparator={true}
-          decimalScale={2}
-          suffix=" pcs."
-          fixedDecimalScale={true}
-        />
-      </Typography>
-    ),
-  },
-  { field: "price", headerName: "Price", width: 130 },
-  {
-    field: "created",
-    headerName: "Created",
-    width: 200,
-    renderCell: ({ value }) => (
-      <Typography variant="body1">
-        {/* 543 diff thai years */}
-        {dayjs(value).locale("th").add(543, "year").format("DD MMMM YYYY")}
-      </Typography>
-    ),
-  },
-];
+interface QuickSearchToolbarProps {
+  clearSearch: () => void;
+  onChange: () => void;
+  value: string;
+}
 
-export default function DataTable() {
-  const stockReducer = useSelector(stockSelector);
-  const dispatch = useAppDispatch();
-
-  React.useEffect(() => {
-    // first - called during created
-    dispatch(getProducts());
-
-    return () => {
-      // second - called during destroyed
-      console.log("Stock page was destroyed");
-    };
-  }, [dispatch]);
-
+function QuickSearchToolbar(props: QuickSearchToolbarProps) {
   return (
-    <div style={{ height: 400, width: "100%" }}>
-      <DataGrid
-        getRowId={(row) => row.productId}
-        rows={stockReducer.stockAllResult}
-        columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: { page: 0, pageSize: 5 },
+    <Box
+      sx={{
+        p: 0.5,
+        pb: 0,
+      }}
+    >
+      <TextField
+        variant="standard"
+        value={props.value}
+        onChange={props.onChange}
+        placeholder="Search…"
+        InputProps={{
+          startAdornment: <Search fontSize="small" />,
+          endAdornment: (
+            <IconButton
+              title="Clear"
+              aria-label="Clear"
+              size="small"
+              style={{ visibility: props.value ? "visible" : "hidden" }}
+              onClick={props.clearSearch}
+            >
+              <Clear fontSize="small" />
+            </IconButton>
+          ),
+        }}
+        sx={{
+          width: {
+            xs: 1,
+            sm: "auto",
+          },
+          m: (theme) => theme.spacing(1, 0.5, 1.5),
+          "& .MuiSvgIcon-root": {
+            mr: 0.5,
+          },
+          "& .MuiInput-underline:before": {
+            borderBottom: 1,
+            borderColor: "divider",
           },
         }}
-        pageSizeOptions={[5, 10]}
       />
-    </div>
+      <Fab
+        color="primary"
+        aria-label="add"
+        component={Link}
+        to="/stock/create"
+        className="absolute top-[10px] right-[10px]"
+      >
+        <Add />
+      </Fab>
+    </Box>
   );
 }
+
+const Stock = () => {
+  // const [isCopied, handleCopy] = useCopyToClipboard(500);
+  const stockReducer = useSelector(stockSelector);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
+  const [selectedProduct, setSelectedProduct] = useState<Product>();
+  const [value, setValue] = useDebounce("", 300);
+
+  useEffect(() => {
+    dispatch(getProducts());
+  }, [dispatch]);
+
+  const stockColumns: GridColDef[] = [
+    {
+      headerName: "ID",
+      field: "productId",
+      width: 50,
+    },
+    {
+      headerName: "IMG",
+      field: "image",
+      width: 80,
+      renderCell: ({ value }: GridRenderCellParams) => (
+        <img
+          alt=""
+          src={`${imageUrl}//${value}?dummy=${Math.random()}`}
+          className="w-[70px] h-[70px] rounded-[5%]"
+        />
+      ),
+    },
+    {
+      headerName: "NAME",
+      field: "name",
+      width: 400,
+    },
+    {
+      headerName: "STOCK",
+      width: 120,
+      field: "stock",
+      renderCell: ({ value }: GridRenderCellParams) => (
+        <Typography variant="body1">
+          <NumericFormat
+            value={value}
+            displayType={"text"}
+            thousandSeparator={true}
+            decimalScale={0}
+            fixedDecimalScale={true}
+          />
+        </Typography>
+      ),
+    },
+    {
+      headerName: "PRICE",
+      field: "price",
+      width: 120,
+      renderCell: ({ value }: GridRenderCellParams) => (
+        <Typography variant="body1">
+          <NumericFormat
+            value={value}
+            displayType={"text"}
+            thousandSeparator={true}
+            decimalScale={2}
+            fixedDecimalScale={true}
+            prefix={"฿"}
+          />
+        </Typography>
+      ),
+    },
+    {
+      headerName: "TIME",
+      field: "created",
+      width: 120,
+      renderCell: ({ value }: GridRenderCellParams) => (
+        <Typography variant="body1">
+          {/* 543 diff thai years */}
+          {dayjs(value).locale("th").add(543, "year").format("DD MMMM YYYY")}
+        </Typography>
+      ),
+    },
+    {
+      headerName: "ACTION",
+      field: ".",
+      width: 220,
+      renderCell: ({ row }) => (
+        <Stack direction="row">
+          <IconButton
+            aria-label="edit"
+            size="large"
+            onClick={() => {
+              navigate("/stock/edit/" + row.productId);
+            }}
+          >
+            <Edit fontSize="inherit" />
+          </IconButton>
+          <IconButton
+            aria-label="delete"
+            size="large"
+            onClick={() => {
+              setSelectedProduct(row);
+              setOpenDialog(true);
+            }}
+          >
+            <Delete fontSize="inherit" />
+          </IconButton>
+          <IconButton
+            disabled={isCopied && selectedProduct?.productId === row.productId}
+            aria-label="copy"
+            size="large"
+            onClick={() => {
+              setSelectedProduct(row);
+              handleCopy((row as Product).name);
+            }}
+          >
+            <CopyAll fontSize="inherit" />
+          </IconButton>
+        </Stack>
+      ),
+    },
+  ];
+
+  const handleDeleteConfirm = async () => {
+    if (selectedProduct && selectedProduct.productId) {
+      const result = await dispatch(
+        deleteProduct(selectedProduct.productId.toString())
+      );
+      if (deleteProduct.fulfilled.match(result)) {
+        dispatch(getProducts(""));
+      }
+      setOpenDialog(false);
+    }
+  };
+
+  const handleClose = () => {
+    setOpenDialog(false);
+  };
+
+  const showDialog = () => {
+    if (selectedProduct === null) {
+      return "";
+    }
+
+    return (
+      <Dialog
+        open={openDialog}
+        keepMounted
+        aria-labelledby="alert-dialog-slide-title"
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle id="alert-dialog-slide-title">
+          <img
+            alt=""
+            src={`${imageUrl}//${
+              selectedProduct?.image
+            }?dummy=${Math.random()}`}
+            className="w-[100px] rounded-[5%]"
+          />
+          <br />
+          Confirm to delete the product? : {" " + selectedProduct?.name}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            You cannot restore deleted product.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="info">
+            Cancel
+          </Button>
+          <Button onClick={handleDeleteConfirm} color="primary">
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
+    );
+  };
+
+  return (
+    <Box>
+      {/* Summary Icons */}
+      <Grid container className="mb-6" spacing={7}>
+        <Grid item xs={12} lg={3} md={6}>
+          <StockCard
+            icon={AddShoppingCart}
+            title="TOTAL"
+            subtitle="112 THB"
+            color="#00a65a"
+          />
+        </Grid>
+
+        <Grid item xs={12} lg={3} md={6}>
+          <StockCard
+            icon={NewReleases}
+            title="EMPTY"
+            subtitle="9 PCS."
+            color="#f39c12"
+          />
+        </Grid>
+
+        <Grid item xs={12} lg={3} md={6}>
+          <StockCard
+            icon={AssignmentReturn}
+            title="RETURN"
+            subtitle="1 PCS."
+            color="#dd4b39"
+          />
+        </Grid>
+
+        <Grid item xs={12} lg={3} md={6}>
+          <StockCard
+            icon={Star}
+            title="LOSS"
+            subtitle="5 PCS."
+            color="#00c0ef"
+          />
+        </Grid>
+      </Grid>
+
+      <DataGrid
+        components={{ Toolbar: QuickSearchToolbar }}
+        sx={{
+          backgroundColor: "white",
+          height: "70vh",
+          "& .MuiDataGrid-cell:focus": { outline: "solid #2196f3 0px" },
+        }}
+        getRowId={(row) => row.productId}
+        rows={stockReducer.stockAllResult}
+        columns={stockColumns}
+        componentsProps={{
+          toolbar: {
+            onChange: (event: React.ChangeEvent<HTMLInputElement>) =>
+              setValue(event?.target.value),
+            clearSearch: () => setValue(""),
+          },
+        }}
+      />
+      {showDialog()}
+    </Box>
+  );
+};
+
+export default Stock;
