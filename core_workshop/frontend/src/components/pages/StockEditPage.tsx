@@ -1,9 +1,9 @@
-import React from 'react'
+import React from "react";
+import { useMatch } from "react-router-dom";
 
-type Props = {}
+type Props = {};
 
 export default function StockEditPage({}: Props) {
-  return (
-    <div>StockEditPage</div>
-  )
+  const match = useMatch("/stock/edit/:id");
+  return <div>StockEditPage {match?.params.id}</div>;
 }
