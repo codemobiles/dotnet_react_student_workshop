@@ -12,6 +12,7 @@ import StockPage from "./components/pages/StockPage";
 import { useSelector } from "react-redux";
 import { authSelector, relogin } from "./store/slices/authSlice";
 import { useAppDispatch } from "./store/store";
+import PublicRoutes from "./router/public.routes";
 
 const drawerWidth = 240;
 
@@ -64,11 +65,19 @@ export default function App() {
       <Main open={open}>
         <Container>
           <Routes>
-            <Route path="/" element={<Navigate to="/login" />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
+            {/* public zone */}
+            <Route
+              path="/"
+              element={<PublicRoutes isAuthented={authReducer.isAuthented} />}
+            >
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/" element={<Navigate to="/login" />} />
+              <Route path="*" element={<Navigate to="/login" />} />
+            </Route>
+
+            
             <Route path="/stock" element={<StockPage />} />
-            <Route path="*" element={<Navigate to="/login" />} />
           </Routes>
         </Container>
       </Main>
