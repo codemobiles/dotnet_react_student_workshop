@@ -111,11 +111,12 @@ const Stock = () => {
   const [open, setOpen] = useState(false);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [selectedProduct, setSelectedProduct] = useState<Product>();
-  const [value, setValue] = useDebounce("", 300);
+  // const [value, setValue] = useDebounce("", 300);
+  const [value, setValue] = useState("");
 
   useEffect(() => {
-    dispatch(getProducts());
-  }, [dispatch]);
+    dispatch(getProducts(value));
+  }, [dispatch, value]);
 
   const stockColumns: GridColDef[] = [
     {
@@ -361,7 +362,7 @@ const Stock = () => {
         getRowId={(row) => row.productId}
         rows={stockReducer.stockAllResult}
         columns={stockColumns}
-        slotsProps={{
+        slotProps={{
           toolbar: {
             onChange: (event: React.ChangeEvent<HTMLInputElement>) => {
               console.log(event?.target.value);
