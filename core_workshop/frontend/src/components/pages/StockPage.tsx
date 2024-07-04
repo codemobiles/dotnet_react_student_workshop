@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 const columns: GridColDef[] = [
   { field: "productId", headerName: "ID", width: 70 },
-  { field: "name", headerName: "Name", width: 130 },
+  { field: "name", headerName: "Name", width: 330 },
   { field: "price", headerName: "Price", width: 130 },
 ];
 
