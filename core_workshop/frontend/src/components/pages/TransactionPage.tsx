@@ -81,7 +81,7 @@ const Transaction = () => {
       headerName: "IMG",
       width: 50,
       field: "orderList",
-      renderCell: (params: GridRenderCellParams<any>) => {
+      renderCell: (params: GridRenderCellParams<{ value: string }>) => {
         try {
           const orderList = JSON.parse(params.value);
           return <Avatar src={`${imageUrl}//${orderList[0].image}`} />;
@@ -113,8 +113,8 @@ const Transaction = () => {
                 },
               },
             }}
-            getRowId={(row: any) => row.transactionId}
-            onRowSelectionModelChange={(newSelectionModel: any) => {
+            getRowId={(row) => row.transactionId}
+            onRowSelectionModelChange={(newSelectionModel) => {
               setSelectedId(newSelectionModel[0]);
             }}
             rowSelectionModel={[selectedId]}
@@ -128,7 +128,7 @@ const Transaction = () => {
         </Grid>
         <Grid item xs={orderList.length ? 5 : 0}>
           <ul>
-            {orderList.map((item: any) => (
+            {orderList.map((item: { image: string; name: string }) => (
               <Stack direction="row" spacing={1}>
                 <Avatar src={`${imageUrl}//${item.image}`} />
                 <li>{item.name}</li>
