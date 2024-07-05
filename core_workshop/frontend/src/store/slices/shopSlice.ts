@@ -86,12 +86,22 @@ const shopSlice = createSlice({
       orderLines.splice(foundIndex, 1);
       updateOrder(state, orderLines);
     },
-    togglePayment: (state, _action: PayloadAction<void>) => {
+    togglePayment: (state) => {
       state.mIsPaymentMade = !state.mIsPaymentMade;
       state.mGiven = 0;
     },
   },
-  extraReducers: (builder) => {},
+  extraReducers: (builder) => {
+    builder.addCase(getTransactions.fulfilled, (state, action) => {
+      state.transactionAllResult = action.payload;
+    });
+
+    builder.addCase(submitPayment.fulfilled, (state) => {
+      state.mIsPaymentMade = false;
+      state.mGiven = 0;
+      state.mOrderLines = [];
+    });
+  },
 });
 
 export const { addOrder, removeOrder, togglePayment } = shopSlice.actions;
