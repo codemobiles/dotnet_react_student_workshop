@@ -1,4 +1,4 @@
-import { User, UserType } from "@/types/user.type";
+import { User } from "@/types/user.type";
 
 import * as Icons from "@mui/icons-material/";
 import { Box, InputAdornment, Stack } from "@mui/material";
@@ -15,12 +15,9 @@ import { useNavigate } from "react-router-dom";
 import LogoImage from "@/assets/react.svg";
 import loginBg from "@/assets/images/bg4.jpg";
 
-
-import axios from "axios";
 import { useSelector } from "react-redux";
-import { RootState, useAppDispatch } from "@/store/store";
+import { useAppDispatch } from "@/store/store";
 import { add, addAsync, commonSelector, del } from "@/store/slices/commonSlice";
-import { LoginResult } from "@/types/auth-result.type";
 import { authSelector, login } from "@/store/slices/authSlice";
 
 const formValidateSchema = Yup.object().shape({
@@ -39,7 +36,7 @@ const Login = () => {
   const authReducer = useSelector(authSelector);
   const dispatch = useAppDispatch();
 
-  const classes: any = {
+  const classes = {
     root: { display: "flex", justifyContent: "center", alignItems: "center" },
     submitBtn: { marginTop: 4 },
     canelBtn: { marginTop: 2 },
