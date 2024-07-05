@@ -1,37 +1,216 @@
+import { TransactionRequest } from "@/types/transaction.type";
+import { useSelector } from "react-redux";
+
+import { shopSelector, submitPayment } from "@/store/slices/shopSlice";
+import { useAppDispatch } from "@/store/store";
+import { Stack } from "@mui/material";
+import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
+import InputAdornment from "@mui/material/InputAdornment";
+import TextField from "@mui/material/TextField";
+import { Box } from "@mui/system";
 import React from "react";
 
-type Props = {
+type PaymentProps = {
   order: string;
 };
 
-type OrderType = {
-  productId: number;
-  name: string;
-  image: string;
-  stock: number;
-  price: number;
-  created: Date;
-  qty: number;
+const Payment = (props: PaymentProps) => {
+  const shopReducer = useSelector(shopSelector);
+  const dispatch = useAppDispatch();
+  const [given, setGiven] = React.useState(0);
+
+  const isMustChanged = () => {
+    try {
+      return given > shopReducer.mTotalPrice;
+    } catch (err) {
+      return false;
+    }
+  };
+
+  const onClickSubmit = () => {
+    const trans: TransactionRequest = {
+      subtotal: 0,
+      discount: 0,
+      shippingCost: 0,
+      taxPercent: 0,
+      total: shopReducer.mTotalPrice,
+      paid: given,
+      change: shopReducer.mTotalPrice - given,
+      orderList: props.order,
+      paymentType: "cash",
+      paymentDetail: "full",
+      employeeId: "x",
+      sellerId: "sr0001",
+      buyerId: "by0000",
+      comment: "x",
+    };
+
+    dispatch(submitPayment(trans));
+  };
+
+  const showForm = () => {
+    return (
+      <>
+        <Stack direction="row">
+          <TextField
+            variant="outlined"
+            margin="normal"
+            value={given}
+            required
+            fullWidth
+            sx={{
+              "& .css-1o9s3wi-MuiInputBase-input-MuiOutlinedInput-input": {
+                color: "green",
+              },
+            }}
+            label="Given"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            InputProps={{
+              style: { fontSize: 35, marginBottom: 20 },
+              readOnly: true,
+              startAdornment: (
+                <InputAdornment position="start">THB</InputAdornment>
+              ),
+            }}
+          />
+          {isMustChanged() && (
+            <TextField
+              variant="filled"
+              margin="normal"
+              required
+              value={given - shopReducer.mTotalPrice}
+              fullWidth
+              label="Change"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              InputProps={{
+                style: { fontSize: 35, marginBottom: 20 },
+                readOnly: true,
+                startAdornment: (
+                  <InputAdornment position="start">THB</InputAdornment>
+                ),
+              }}
+            />
+          )}
+        </Stack>
+
+        <Box className="mt-8">
+          <Grid container spacing={1} p={1}>
+            <Grid item xs>
+              <Button
+                className="h-24 text-xl"
+                fullWidth
+                variant="contained"
+                color="primary"
+                onClick={() => setGiven(given + 1000)}
+              >
+                ฿1,000
+              </Button>
+            </Grid>
+            <Grid item xs>
+              <Button
+                className="h-24 text-xl"
+                fullWidth
+                variant="contained"
+                color="primary"
+                onClick={() => setGiven(given + 500)}
+              >
+                ฿500
+              </Button>
+            </Grid>
+            <Grid item xs>
+              <Button
+                className="h-24 text-xl"
+                fullWidth
+                variant="contained"
+                color="primary"
+                onClick={() => setGiven(given + 100)}
+              >
+                ฿100
+              </Button>
+            </Grid>
+          </Grid>
+          <Grid container spacing={1} p={1}>
+            <Grid item xs>
+              <Button
+                className="h-24 text-xl"
+                fullWidth
+                variant="contained"
+                color="primary"
+                onClick={() => setGiven(given + 50)}
+              >
+                ฿50
+              </Button>
+            </Grid>
+            <Grid item xs>
+              <Button
+                className="h-24 text-xl"
+                fullWidth
+                variant="contained"
+                color="primary"
+                onClick={() => setGiven(given + 20)}
+              >
+                ฿20
+              </Button>
+            </Grid>
+            <Grid item xs>
+              <Button
+                className="h-24 text-xl"
+                fullWidth
+                variant="contained"
+                color="primary"
+                onClick={() => setGiven(given + 10)}
+              >
+                ฿10
+              </Button>
+            </Grid>
+          </Grid>
+          <Grid container spacing={1} p={1}>
+            <Grid item xs>
+              <Button
+                className="h-24 text-xl"
+                fullWidth
+                variant="contained"
+                color="info"
+                onClick={() => setGiven(0)}
+              >
+                CLR
+              </Button>
+            </Grid>
+            <Grid item xs>
+              <Button
+                className="h-24 text-xl"
+                fullWidth
+                variant="contained"
+                color="secondary"
+                onClick={() => setGiven(shopReducer.mTotalPrice)}
+              >
+                EXACT
+              </Button>
+            </Grid>
+            <Grid item xs>
+              <Button
+                className="h-24 text-xl"
+                fullWidth
+                disabled={given < shopReducer.mTotalPrice}
+                variant="outlined"
+                color="primary"
+                onClick={() => onClickSubmit()}
+              >
+                Submit
+              </Button>
+            </Grid>
+          </Grid>
+        </Box>
+      </>
+    );
+  };
+
+  return <Box p={2}>{showForm()}</Box>;
 };
 
-export default function Payment({ order }: Props) {
-  const orderArray = JSON.parse(order) as OrderType[];
-
-  return (
-    <div>
-      Payment <br />
-      <ul>
-        {orderArray.map((item) => (
-          <li>
-            <img
-              src={"https://localhost:8081/images/" + item.image}
-              alt=""
-              className="h-[50px]"
-            />
-            {item.name}: {item.price}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
+export default Payment;
