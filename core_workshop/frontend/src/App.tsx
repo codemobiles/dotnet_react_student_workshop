@@ -20,6 +20,7 @@ import StockCreatePage from "./components/pages/StockCreatePage";
 import StockEditPage from "./components/pages/StockEditPage";
 import TransactionPage from "./components/pages/TransactionPage";
 import { ThemeProvider } from "@emotion/react";
+import backgroundMenuImage from "@/assets/images/background_menu.jpg";
 
 const drawerWidth = 240;
 
@@ -70,7 +71,27 @@ export default function App() {
   };
 
   const theme = createTheme({
-    
+    components: {
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            borderRadius: 0,
+          },
+        },
+      },
+      MuiDrawer: {
+        styleOverrides: {
+          paper: {
+            backgroundImage: `url(${backgroundMenuImage})`,
+            backgroundRepeat: "no-repeat",
+            backgroundColor: "#f2fcff",
+            backgroundPosition: "bottom",
+            width: drawerWidth,
+          },
+        },
+      },
+    },
+    spacing: 8,
   });
 
   return (

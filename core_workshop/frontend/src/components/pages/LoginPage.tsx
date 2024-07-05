@@ -117,8 +117,6 @@ const Login = () => {
 
         {authReducer.isError && <Alert severity="error">Login failed</Alert>}
 
-        <Box sx={{ height: 10 }} />
-
         <Button
           sx={classes.submitBtn}
           type="submit"
@@ -131,13 +129,14 @@ const Login = () => {
         </Button>
 
         <Button
+          sx={{ mt: 1 }}
           onClick={() => {
             navigate("/register");
           }}
           type="button"
           fullWidth
           variant="outlined"
-          className="border-dashed border-1 border-gray-300 mt-4"
+          className="border-dashed border-1 border-gray-300"
           color="primary"
         >
           Register
