@@ -18,7 +18,9 @@ export default function TransactionPage({}: Props) {
       TransactionPage
       <ul>
         {shopReducer.transactionAllResult.map((trx) => (
-          <li>{trx.paid}</li>
+          <li>
+            {trx.transactionId}, {trx.paid}, {trx.total}
+          </li>
         ))}
       </ul>
     </div>
