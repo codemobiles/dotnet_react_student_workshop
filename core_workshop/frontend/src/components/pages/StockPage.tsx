@@ -6,7 +6,7 @@ import {
 import { useAppDispatch } from "@/store/store";
 import { Product } from "@/types/product.type";
 import { imageUrl } from "@/utils/constants";
-import { Clear, CopyAll } from "@mui/icons-material";
+import { Clear } from "@mui/icons-material";
 import Add from "@mui/icons-material/Add";
 import AddShoppingCart from "@mui/icons-material/AddShoppingCart";
 import AssignmentReturn from "@mui/icons-material/AssignmentReturn";
@@ -48,7 +48,14 @@ import { Link, useNavigate } from "react-router-dom";
 // import useCopyToClipboard from "../../hooks/useCopyToClipboard";
 import StockCard from "@/components/fragments/StockCard";
 
-function QuickSearchToolbar(props: GridToolbarProps & ToolbarPropsOverrides) {
+function QuickSearchToolbar(
+  props: GridToolbarProps &
+    ToolbarPropsOverrides & {
+      onChange:
+        | React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>
+        | undefined;
+    }
+) {
   return (
     <GridToolbarContainer>
       <Box
