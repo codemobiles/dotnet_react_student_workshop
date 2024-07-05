@@ -1,7 +1,26 @@
-import React from "react";
+import { getTransactions, shopSelector } from "@/store/slices/shopSlice";
+import { useAppDispatch } from "@/store/store";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 type Props = {};
 
 export default function TransactionPage({}: Props) {
-  return <div>TransactionPage</div>;
+  const shopReducer = useSelector(shopSelector);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getTransactions());
+  }, [dispatch]);
+
+  return (
+    <div>
+      TransactionPage
+      <ul>
+        {shopReducer.transactionAllResult.map((trx) => (
+          <li>{trx.paid}</li>
+        ))}
+      </ul>
+    </div>
+  );
 }
