@@ -23,6 +23,11 @@ export default function Payment({ order }: Props) {
       <ul>
         {orderArray.map((item) => (
           <li>
+            <img
+              src={"https://localhost:8081/images/" + item.image}
+              alt=""
+              className="h-[50px]"
+            />
             {item.name}: {item.price}
           </li>
         ))}
