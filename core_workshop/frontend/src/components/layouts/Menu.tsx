@@ -109,6 +109,20 @@ const Menu: React.FC<MenuProps> = ({ handleDrawerClose, open }) => {
       {open && <img alt="" height={250} src={menuBanner} />}
       <Divider />
       <List>
+        {/* Dashboard */}
+        <ListItem
+          component={MyNavLink}
+          to="/dashboard"
+          key="dashboard"
+          activeClassName="Mui-selected"
+          exact
+        >
+          <ListItemIcon>
+            <ShopIcon />
+          </ListItemIcon>
+          <ListItemText primary="Dahsboard" />
+        </ListItem>
+
         {/* Shop */}
         <ListItem
           component={MyNavLink}
