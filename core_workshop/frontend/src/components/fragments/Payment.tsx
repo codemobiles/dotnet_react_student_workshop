@@ -11,8 +11,9 @@ export default function Payment({ order }: Props) {
     <div>
       Payment <br />
       <ul>
-        <li>xx</li>
-        <li>xx</li>
+        {orderArray.map((item) => (
+          <li>{item.name}</li>
+        ))}
       </ul>
     </div>
   );
