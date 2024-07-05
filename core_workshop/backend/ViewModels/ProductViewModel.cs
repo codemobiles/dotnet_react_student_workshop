@@ -7,13 +7,13 @@ namespace backend.ViewModels
     {
         [Required]
         [MaxLength(100, ErrorMessage = "Name, maximum length 100")]
-        public string ProductName { get; set; }
+        public string Name { get; set; }
 
         [Range(0, 10000)]
-        public int ProductStock { get; set; }
+        public int Stock { get; set; }
 
         [Range(0, 1_000_000)]
-        public int ProductPrice { get; set; }
+        public int Price { get; set; }
 
         public IFormFile Image { get; set; }
     }
