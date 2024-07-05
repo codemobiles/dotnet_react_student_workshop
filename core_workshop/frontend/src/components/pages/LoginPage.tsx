@@ -21,7 +21,6 @@ import { add, addAsync, commonSelector, del } from "@/store/slices/commonSlice";
 import { authSelector, login } from "@/store/slices/authSlice";
 
 const formValidateSchema = Yup.object().shape({
-  // username: Yup.string().email("Invalid email address").required("Email is required").trim(),
   username: Yup.string()
     .min(4)
     .required("Username must be more than 3 letters")
@@ -50,7 +49,7 @@ const Login = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<User>({
+  } = useForm({
     defaultValues: initialValue,
     resolver: yupResolver(formValidateSchema),
   });
