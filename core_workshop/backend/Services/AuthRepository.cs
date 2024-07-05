@@ -16,11 +16,11 @@ namespace backend.Services
     public class AuthRepository : IAuthRepository
     {
         private readonly DatabaseContext _context;
-        // private readonly JwtSettings _jwtSettings;
+        private readonly JwtSettings _jwtSettings;
 
-        public AuthRepository(DatabaseContext context)
+        public AuthRepository(DatabaseContext context, JwtSettings jwtSettings)
         {
-            // _jwtSettings = jwtSettings;
+            _jwtSettings = jwtSettings;
             _context = context;
         }
 
