@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 namespace backend.Controller.v1
 {
     [ApiController]
+    [Authorize]
     [Route("api/v1/[controller]")]
     public class ProductController : ControllerBase
     {
