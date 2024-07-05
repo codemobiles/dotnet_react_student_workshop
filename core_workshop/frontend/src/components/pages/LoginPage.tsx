@@ -117,6 +117,8 @@ const Login = () => {
 
         {authReducer.isError && <Alert severity="error">Login failed</Alert>}
 
+        <Box sx={{ height: 10 }} />
+
         <Button
           sx={classes.submitBtn}
           type="submit"
