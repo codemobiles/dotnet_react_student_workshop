@@ -21,6 +21,7 @@ import StockEditPage from "./components/pages/StockEditPage";
 import TransactionPage from "./components/pages/TransactionPage";
 import { ThemeProvider } from "@emotion/react";
 import backgroundMenuImage from "@/assets/images/background_menu.jpg";
+import { Dashboard } from "@mui/icons-material";
 
 const drawerWidth = 240;
 
@@ -91,6 +92,15 @@ export default function App() {
         },
       },
     },
+
+    typography: {
+      fontFamily: "Chakra Petch",
+      // fontFamily: "Noto Sans Thai",
+      fontWeightLight: 100,
+      fontWeightRegular: 400,
+      fontWeightMedium: 500,
+      fontWeightBold: 600,
+    },
     spacing: 8,
   });
 
@@ -126,6 +136,7 @@ export default function App() {
                   <ProtectedRoutes isAuthented={authReducer.isAuthented} />
                 }
               >
+                <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/shop" element={<ShopPage />} />
                 <Route path="/stock" element={<StockPage />} />
                 <Route path="/report" element={<ReportPage />} />
