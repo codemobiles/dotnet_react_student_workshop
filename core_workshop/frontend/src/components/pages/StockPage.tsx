@@ -30,7 +30,14 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
+import {
+  DataGrid,
+  GridColDef,
+  GridRenderCellParams,
+  GridToolbarContainer,
+  GridToolbarProps,
+  ToolbarPropsOverrides,
+} from "@mui/x-data-grid";
 import { useDebounce } from "@react-hook/debounce";
 import dayjs from "dayjs";
 import "dayjs/locale/th";
@@ -41,64 +48,60 @@ import { Link, useNavigate } from "react-router-dom";
 // import useCopyToClipboard from "../../hooks/useCopyToClipboard";
 import StockCard from "@/components/fragments/StockCard";
 
-interface QuickSearchToolbarProps {
-  clearSearch: () => void;
-  onChange: () => void;
-  value: string;
-}
-
-function QuickSearchToolbar(props: QuickSearchToolbarProps) {
+function QuickSearchToolbar(props: GridToolbarProps & ToolbarPropsOverrides) {
   return (
-    <Box
-      sx={{
-        p: 0.5,
-        pb: 0,
-      }}
-    >
-      <TextField
-        variant="standard"
-        value={props.value}
-        onChange={props.onChange}
-        placeholder="Search…"
-        InputProps={{
-          startAdornment: <Search fontSize="small" />,
-          endAdornment: (
-            <IconButton
-              title="Clear"
-              aria-label="Clear"
-              size="small"
-              style={{ visibility: props.value ? "visible" : "hidden" }}
-              onClick={props.clearSearch}
-            >
-              <Clear fontSize="small" />
-            </IconButton>
-          ),
-        }}
+    <GridToolbarContainer>
+      <Box
         sx={{
-          width: {
-            xs: 1,
-            sm: "auto",
-          },
-          m: (theme) => theme.spacing(1, 0.5, 1.5),
-          "& .MuiSvgIcon-root": {
-            mr: 0.5,
-          },
-          "& .MuiInput-underline:before": {
-            borderBottom: 1,
-            borderColor: "divider",
-          },
+          p: 0.5,
+          pb: 0,
         }}
-      />
-      <Fab
-        color="primary"
-        aria-label="add"
-        component={Link}
-        to="/stock/create"
-        className="absolute top-[10px] right-[10px]"
       >
-        <Add />
-      </Fab>
-    </Box>
+        <TextField
+          variant="standard"
+          value={props.value}
+          onChange={props.onChange}
+          placeholder="Search…"
+          InputProps={{
+            startAdornment: <Search fontSize="small" />,
+            endAdornment: (
+              <IconButton
+                title="Clear"
+                aria-label="Clear"
+                size="small"
+                style={{ visibility: props.value ? "visible" : "hidden" }}
+                onClick={props.clearSearch}
+              >
+                <Clear fontSize="small" />
+              </IconButton>
+            ),
+          }}
+          sx={{
+            width: {
+              xs: 1,
+              sm: "auto",
+            },
+            m: (theme) => theme.spacing(1, 0.5, 1.5),
+            "& .MuiSvgIcon-root": {
+              mr: 0.5,
+            },
+            "& .MuiInput-underline:before": {
+              borderBottom: 1,
+              borderColor: "divider",
+            },
+          }}
+        />
+        <Fab
+          color="primary"
+          aria-label="add"
+          component={Link}
+          to="/stock/create"
+          className="absolute top-[10px] right-[10px]"
+        >
+          <Add />
+        </Fab>
+      </Box>
+    </GridToolbarContainer>
   );
 }
 
@@ -316,7 +319,7 @@ const Stock = () => {
         <Grid item xs={12} lg={3} md={6}>
           <Button onClick={() => setOpen(true)}>
             <StockCard
-              icon={AddShoppingCart}
+              icon={<AddShoppingCart />}
               title="TOTAL"
               subtitle="112 THB"
               color="#00a65a"
@@ -326,7 +329,7 @@ const Stock = () => {
 
         <Grid item xs={12} lg={3} md={6}>
           <StockCard
-            icon={NewReleases}
+            icon={<NewReleases />}
             title="EMPTY"
             subtitle="9 PCS."
             color="#f39c12"
@@ -335,7 +338,7 @@ const Stock = () => {
 
         <Grid item xs={12} lg={3} md={6}>
           <StockCard
-            icon={AssignmentReturn}
+            icon={<AssignmentReturn />}
             title="RETURN"
             subtitle="1 PCS."
             color="#dd4b39"
@@ -344,7 +347,7 @@ const Stock = () => {
 
         <Grid item xs={12} lg={3} md={6}>
           <StockCard
-            icon={Star}
+            icon={<Star />}
             title="LOSS"
             subtitle="5 PCS."
             color="#00c0ef"
